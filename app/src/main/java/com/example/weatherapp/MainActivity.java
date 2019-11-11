@@ -26,9 +26,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-
-
     private Button updateButtonClick;
     private TextView temperature, windSpeed, cloudiness, precipitation;
     private ImageView image;
@@ -39,12 +36,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         updateButtonClick = (Button) findViewById(R.id.updateButton);
         updateButtonClick.setOnClickListener(this);
-
         temperature = (TextView) findViewById(R.id.temperatureTextView);
         windSpeed = (TextView) findViewById(R.id.windSpeedTextView);
         cloudiness = (TextView) findViewById(R.id.cloudinessTextView);
         precipitation = (TextView) findViewById(R.id.precipitationTextView);
-
         image = (ImageView) findViewById(R.id.weatherImageView);
     }
 
@@ -53,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GetWeather getWeather = new GetWeather();
         getWeather.execute();
     }
-
 
     private class GetWeather extends AsyncTask<Void, Void, Void> {
         private String apiUrl = "https://api.met.no/weatherapi/locationforecast/1.9/?lat=62.3908;lon=17.3069";
@@ -64,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         private String precipitationText;
         private String strXml;
         private Bitmap draw;
-
 
         /**
          * Gets necessary data in the background without disturbing main thread.
@@ -91,7 +84,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             precipitation.setText(precipitationText);
             image.setImageBitmap(draw);
         }
-
 
         /**
          * Gets the xml from rest api as a string.
@@ -167,7 +159,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Element windElement = (Element) eElement.getElementsByTagName("windSpeed").item(0);
                     Element imageElement = (Element) pElement.getElementsByTagName("symbol").item(0);
                     Element precipElement = (Element) pElement.getElementsByTagName("precipitation").item(0);
-
                     temperatureText = "Temperature: " + tempElement.getAttribute("value") + "°";
                     cloudinessText = "Cloudiness: " + cloudElement.getAttribute("percent")+ "%";
                     windSpeedText = "WindSpeed: " +  windElement.getAttribute("mps") + "mps";
@@ -178,11 +169,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 e.printStackTrace();
             }
         }
-
-
     }
-
-
-
-
 }
